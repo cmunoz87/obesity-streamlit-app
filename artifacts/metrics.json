@@ -1,0 +1,134 @@
+{
+  "accuracy": 0.9318181818181818,
+  "classification_report": {
+    "Bajo_peso": {
+      "precision": 0.9545454545454546,
+      "recall": 0.9264705882352942,
+      "f1-score": 0.9402985074626866,
+      "support": 68.0
+    },
+    "Obesidad_I": {
+      "precision": 0.9655172413793104,
+      "recall": 0.9545454545454546,
+      "f1-score": 0.96,
+      "support": 88.0
+    },
+    "Obesidad_II": {
+      "precision": 1.0,
+      "recall": 0.9864864864864865,
+      "f1-score": 0.9931972789115647,
+      "support": 74.0
+    },
+    "Obesidad_III": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 81.0
+    },
+    "Peso_normal": {
+      "precision": 0.7777777777777778,
+      "recall": 0.875,
+      "f1-score": 0.823529411764706,
+      "support": 72.0
+    },
+    "Sobrepeso_I": {
+      "precision": 0.875,
+      "recall": 0.863013698630137,
+      "f1-score": 0.8689655172413793,
+      "support": 73.0
+    },
+    "Sobrepeso_II": {
+      "precision": 0.9558823529411765,
+      "recall": 0.9027777777777778,
+      "f1-score": 0.9285714285714286,
+      "support": 72.0
+    },
+    "accuracy": 0.9318181818181818,
+    "macro avg": {
+      "precision": 0.9326746895205315,
+      "recall": 0.9297562865250215,
+      "f1-score": 0.9306517348502522,
+      "support": 528.0
+    },
+    "weighted avg": {
+      "precision": 0.9347976090193844,
+      "recall": 0.9318181818181818,
+      "f1-score": 0.9327701522911758,
+      "support": 528.0
+    }
+  },
+  "labels": [
+    "Bajo_peso",
+    "Peso_normal",
+    "Sobrepeso_I",
+    "Sobrepeso_II",
+    "Obesidad_I",
+    "Obesidad_II",
+    "Obesidad_III"
+  ],
+  "confusion_matrix": [
+    [
+      63,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      3,
+      63,
+      6,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      10,
+      63,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      3,
+      2,
+      65,
+      2,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      3,
+      84,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      1,
+      73,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      81
+    ]
+  ]
+}
