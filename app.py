@@ -26,21 +26,79 @@ METRICS_PATH = ART_DIR / "metrics.json"
 # =========================
 # Estilo simple
 # =========================
-st.markdown(
-    """
-    <style>
-    .main .block-container { padding-top: 1.2rem; padding-bottom: 2rem; }
-    .kpi {
-        padding: 1rem 1.2rem;
-        border: 1px solid rgba(0,0,0,0.08);
-        border-radius: 14px;
-        background: rgba(255,255,255,0.95);
-    }
-    .muted { color: rgba(0,0,0,0.62); }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+import base64
+from pathlib import Path
+import streamlit as st
+
+
+def add_bg_watermark(image_path: str, opacity: float = 0.05, size_px: int = 900):
+    # Lee la imagen y la convierte a base64
+    img_bytes = Path(image_path).read_bytes()
+    b64 = base64.b64encode(img_bytes).decode("utf-8")
+
+    # Inyecta CSS (f-string) con el base64 y la opacidad
+    st.markdown(
+        f"""
+        <style>
+        /* ===== ESTILO GENERAL ===== */
+        h1, h2, h3 {{
+            color: #1E3A8A;
+        }}
+
+        .card {{
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(20, 60, 120, 0.08);
+            border: 1px solid #E3ECFA;
+            margin-bottom: 1.5rem;
+        }}
+
+        .muted {{
+            color: #475569;
+            font-size: 0.9rem;
+        }}
+
+        div.stButton > button {{
+            background-color: #1E40AF;
+            color: white;
+            border-radius: 10px;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            border: none;
+        }}
+        div.stButton > button:hover {{
+            background-color: #1D4ED8;
+        }}
+
+        /* ===== WATERMARK ===== */
+        .stApp::before {{
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/png;base64,{b64}");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: {size_px}px auto;
+            opacity: {opacity};
+            z-index: 0;
+            pointer-events: none;
+        }}
+
+        /* Todo el contenido por encima del watermark */
+        section[data-testid="stAppViewContainer"] {{
+            position: relative;
+            z-index: 1;
+            background: transparent !important;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+# Llama la función UNA VEZ, idealmente al inicio del script
+add_bg_watermark("data/watermark.png", opacity=0.5, size_px=900)
 
 
 # =========================
@@ -190,8 +248,15 @@ def make_confusion_heatmap(cm: np.ndarray, labels: List[str]):
 # =========================
 # Arranque
 # =========================
-st.title("Evaluación nutricional")
-st.caption("Visualización del clasificador y prueba con datos ingresados por pantalla.")
+st.markdown(
+    """
+    <h1>Evaluación Nutricional Predictiva</h1>
+    <p class="muted">
+    Sistema de clasificación basado en hábitos, características físicas y antecedentes.
+    </p>
+    """,
+    unsafe_allow_html=True
+)
 
 if not MODEL_PATH.exists():
     st.error("No se encontró artifacts/model.joblib.")
@@ -270,6 +335,7 @@ with tabs[0]:
 # =========================
 # TAB: Probar el modelo
 # =========================
+st.markdown('<div class="card">', unsafe_allow_html=True)
 with tabs[1]:
     st.subheader("Prueba del clasificador")
 
@@ -423,4 +489,4 @@ with tabs[1]:
                     st.success(f"Resultado del modelo: {str(pred).replace('_', ' ')}")
                 except Exception as e:
                     st.error(f"No se pudo clasificar con los datos ingresados. Detalle: {e}")
-
+st.markdown('</div>', unsafe_allow_html=True)
